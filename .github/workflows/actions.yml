@@ -1,12 +1,25 @@
 name: Actions Workflow
 on:
-  repository_dispatch:
-    types: [build]
+  push:
+    # branches-ignore:
+    #   - ""
+    branches:
+      - main
+      - 'feature/*' # matches feature/featA, feature/featB
+                    # doesn't match feature/feat/a
+      - 'feature/**'
+      - '!feature/featC' # ignore this branch
+    tags:
+      - v1.*
+    paths:
+      - '**.js'
+  # repository_dispatch:
+    # types: [build]
   # schedule:
   #   - cron: "1 * * * *"
   # push:
-  pull_request:
-    types: [closed, assigned, opened, reopened]
+  # pull_request:
+    # types: [closed, assigned, opened, reopened]
 jobs: 
   runs-github-actions:
     runs-on: ubuntu-latest
